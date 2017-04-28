@@ -27,26 +27,6 @@ export default class viewServerStatus extends Component {
         return servers ? dataSource.cloneWithRows(this.state.servers) : dataSource;
     }
 
-    displayList() {
-        return <ListView
-            refreshControl={
-                <RefreshControl
-                    refreshing={this.state.loading}
-                    onRefresh={this.getServerStatus()} />
-            }
-            dataSource={ this.getDataSource() }
-            stickyHeaderIndices={[]}
-            renderRow={(item, sectionId, rowId) =>
-                <TouchableOpacity style={ item.uptime_status === 'up' ? styles.ok_colors : styles.error_colors }>
-                    <Text>{item.url}</Text>
-                    <Text>{item.uptime_status}</Text>
-                    <Text>{item.uptime_check_failure_reason}</Text>
-                    <Text>{item.updated_at}</Text>
-                </TouchableOpacity>
-            }
-        />
-    }
-
     displayLoading() {
         return <ActivityIndicator style={{ marginTop: 200 }} />
     }
@@ -58,7 +38,23 @@ export default class viewServerStatus extends Component {
     render() {
         return (
             <View>
-                { this.state.loading ? this.displayLoading() : this.displayList() }
+                { this.state.loading ? this.displayLoading() : <ListView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.loading}
+                            onRefresh={this.getServerStatus()} />
+                    }
+                    dataSource={ this.getDataSource() }
+                    stickyHeaderIndices={[]}
+                    renderRow={(item, sectionId, rowId) =>
+                        <TouchableOpacity style={ item.uptime_status === 'up' ? styles.ok_colors : styles.error_colors }>
+                            <Text>{item.url}</Text>
+                            <Text>{item.uptime_status}</Text>
+                            <Text>{item.uptime_check_failure_reason}</Text>
+                            <Text>{item.updated_at}</Text>
+                        </TouchableOpacity>
+                    }
+                /> }
             </View>
         );
     }
@@ -66,28 +62,14 @@ export default class viewServerStatus extends Component {
 
 const styles = StyleSheet.create({
     error_colors: {
-        backgroundColor: '#990000'
+        backgroundColor: '#900',
+        borderBottomColor: '#fff',
+        borderBottomWidth: 1
     },
     ok_colors: {
         backgroundColor: '#92B286',
         borderBottomColor: '#999',
         borderBottomWidth: 1
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
     },
 });
 
