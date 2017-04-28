@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, AppRegistry, StyleSheet, Text, TouchableOpacity, ListView, View, RefreshControl } from 'react-native';
+import { ActivityIndicator, Button, AppRegistry, StyleSheet, Text, TouchableOpacity, ListView, View, RefreshControl } from 'react-native';
 import axios from 'axios'
 
 export default class viewServerStatus extends Component {
@@ -39,22 +39,22 @@ export default class viewServerStatus extends Component {
         return (
             <View>
                 { this.state.loading ? this.displayLoading() : <ListView
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.state.loading}
-                            onRefresh={this.getServerStatus()} />
-                    }
                     dataSource={ this.getDataSource() }
                     stickyHeaderIndices={[]}
                     renderRow={(item, sectionId, rowId) =>
                         <TouchableOpacity style={ item.uptime_status === 'up' ? styles.ok_colors : styles.error_colors }>
-                            <Text>{item.url}</Text>
-                            <Text>{item.uptime_status}</Text>
+                            <Text>{item.url} - {item.uptime_status}</Text>
                             <Text>{item.uptime_check_failure_reason}</Text>
                             <Text>{item.updated_at}</Text>
                         </TouchableOpacity>
                     }
                 /> }
+
+                { this.state.loading ? null :
+                    <View style={{margin: 20}}>
+                        <Button title={'Refresh'} onPress={ () => alert('no seas pretencioso.. ¬¬') }/>
+                    </View>
+                }
             </View>
         );
     }
@@ -64,11 +64,21 @@ const styles = StyleSheet.create({
     error_colors: {
         backgroundColor: '#900',
         borderBottomColor: '#fff',
+        marginTop: 5,
+        marginLeft: 5,
+        marginRight: 5,
+        padding: 10,
+        borderRadius: 5,
         borderBottomWidth: 1
     },
     ok_colors: {
         backgroundColor: '#92B286',
         borderBottomColor: '#999',
+        marginTop: 5,
+        marginLeft: 5,
+        marginRight: 5,
+        padding: 10,
+        borderRadius: 5,
         borderBottomWidth: 1
     },
 });
