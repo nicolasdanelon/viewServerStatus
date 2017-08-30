@@ -74,7 +74,8 @@ class viewServerStatus extends Component {
           visible={this.state.modalVisible}
           onRequestClose={() => this.setState({modalVisible: false}) }
         >
-            {this.state.item.map((item)=> <View key="0asd">
+          {this.state.item.map((item) =>
+            <View key="modalContent">
               <Text>URL: {item.url}</Text>
               {item.uptime_check_enabled ? <Text>Enabled: {item.uptime_check_enabled}</Text> : null}
               {item.look_for_string ? <Text>Looking for string: {item.look_for_string}</Text> : null}
@@ -86,16 +87,15 @@ class viewServerStatus extends Component {
               {item.uptime_last_check_date ? <Text>Last check date: {item.uptime_last_check_date}</Text> : null}
               {item.uptime_check_failed_event_fired_on_date ? <Text>Event fired date: {item.uptime_check_failed_event_fired_on_date}</Text> : null}
               {item.uptime_check_method ? <Text>Uptime check method: {item.uptime_check_method}</Text> : null}
-              {item.certificate_check_enabled ? <Text>SSL?{item.certificate_check_enabled}</Text> : null}
-
-              {item.certificate_check_enabled ? <Text>{item.certificate_check_enabled}</Text> : null}
-              {item.certificate_status ? <Text>{item.certificate_status}</Text> : null}
-              {item.certificate_expiration_date ? <Text>{item.certificate_expiration_date}</Text> : null}
-              {item.certificate_issuer ? <Text>{item.certificate_issuer}</Text> : null}
-              {item.certificate_check_failure_reason ? <Text>{item.certificate_check_failure_reason}</Text> : null}
-              {item.created_at ? <Text>{item.created_at}</Text> : null}
-              {item.updated_at ? <Text>{item.updated_at}</Text> : null}
-            </View>)}
+              {item.certificate_check_enabled ? <Text>SSL? {item.certificate_check_enabled}</Text> : null}
+              {item.certificate_status ? <Text>Certificate Status: {item.certificate_status}</Text> : null}
+              {item.certificate_expiration_date ? <Text>Expiration date: {item.certificate_expiration_date}</Text> : null}
+              {item.certificate_issuer ? <Text>Issuer: {item.certificate_issuer}</Text> : null}
+              {item.certificate_check_failure_reason ? <Text>Failure reason: {item.certificate_check_failure_reason}</Text> : null}
+              {item.created_at ? <Text>Created at: {item.created_at}</Text> : null}
+              {item.updated_at ? <Text>Updated at: {item.updated_at}</Text> : null}
+            </View>
+          )}
         </Modal> : null}
       </View>
     );
