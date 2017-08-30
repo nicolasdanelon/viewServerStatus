@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { ActivityIndicator, AppRegistry, StyleSheet, Text, TouchableOpacity, ListView, View, Modal, RefreshControl } from 'react-native';
 import axios from 'axios'
 
+const apiURL = 'http://52.88.153.114/api-mon/api/monitor/';
+
 class viewServerStatus extends Component {
 
   constructor(props) {
@@ -17,13 +19,13 @@ class viewServerStatus extends Component {
   }
 
   getServerStatus() {
-    axios.get('http://52.88.153.114/api-mon/api/monitor/')
+    axios.get(apiURL)
       .then(res => this.setState({ servers: [ ...res.data ], loading: false }))
       .catch(err => alert(err))
   }
 
   showModal(itemId) {
-    axios.get(`http://52.88.153.114/api-mon/api/monitor/${itemId}`)
+    axios.get(`${apiURL}${itemId}`)
       .then(
         red => {
           this.setState({ item: red.data, modalVisible: true})
