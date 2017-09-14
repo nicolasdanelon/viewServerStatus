@@ -49,3 +49,4 @@ Pods/
 .bundle/
 android/app/app-release.apk
 android/app/src/main/assets/index.android.bundle
+.*apk
